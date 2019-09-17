@@ -26,18 +26,26 @@
 
 numbers = {
     "hundert": "00 ",
+    "elf": "11 ",
+    "zwölf": "12 ",
+    "dreizehn": "13 ",
+    "vierzehn": "14 ",
+    "fünfzehn": "14 ",
+    "sechszehn": "16 ",
+    "siebzehn": "17 ",
+    "achtzehn": "18 ",
+    "neunzehn": "19 ",
     "eins": 1,
     "zwei": 2,
     "drei": 3,
-    "vier": 4,
     "fünf": 5,
     "sechs": 6,
+    "sech": 6,
     "sieben": 7,
     "sieb": 7,
     "acht": 8,
     "neun": 9,
-    "elf": 11,
-    "zwölf": 12,
+    "vier": 4,
     "zig": "0 ",
     "ßig": "0 ",
     "zwan": "2",
@@ -72,22 +80,25 @@ def text2num(giventext):
         if len(text) > 0:
             for word in numbers:
                 text = text.replace(word, str(numbers.get(word)))
+            # print(text)
 
             digits = text.strip().split(" ")
 
             for i in range(len(digits)):
                 if i > 0:
-                    if len(digits[i]) == 2 and len(digits[i-1]) == 1:
-                        digits[i], digits[i-1] = digits[i-1], digits[i]
+                    if len(digits[i]) == 2 and len(digits[i - 1]) == 1:
+                        digits[i], digits[i - 1] = digits[i - 1], digits[i]
 
             number = merge_figures(digits)
             result = merge_figures((result, number))
 
-    #print(giventext, " -> ", result)
+    # print(giventext, " -> ", result)
     return int(result)
 
 
 if __name__ == "__main__":
+    assert 314000 == text2num("Dreihundertvierzehntausend")
+    assert 260000 == text2num("Zweihundertsechzigtausend")
     assert 120000000 == text2num("einhundertzwanzigmillionen")
     assert 22022022 == text2num("zweiundzwanzigmillionenzweiundzwanzigtausendzweiundzwanzig")
     assert 22003 == text2num("zweiundzwanzigtausenddrei")
@@ -111,4 +122,3 @@ if __name__ == "__main__":
     assert 30 == text2num("dreißig")
     assert 7000 == text2num("siebentausend")
     assert 4001 == text2num("viertausendeins")
-
